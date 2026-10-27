@@ -1,0 +1,13 @@
+mode: solo_reglas
+model: qwen2.5:3b
+base_url: http://127.0.0.1:11434
+first_gloss_timeout_seconds: 1.5
+request_timeout_seconds: 30
+connect_timeout_seconds: 3
+keep_alive: 30m
+cache_size: 512
+parameters:
+  temperature: 0
+  seed: 0
+  num_predict: 48
+  num_ctx: 2048

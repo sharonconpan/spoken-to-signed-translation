@@ -1,0 +1,1324 @@
+{
+  "version": 1,
+  "fps": 30.0,
+  "signed_language": "prl",
+  "trim_applied": false,
+  "trim": {
+    "confidence_threshold": 0.5,
+    "motion_threshold_mps": 0.08,
+    "below_hips_margin_m": 0.0,
+    "consecutive_frames": 6
+  },
+  "by_path": {
+    "prl/abuela.pose": "abuela",
+    "prl/abuelo.pose": "abuelo",
+    "prl/adios.pose": "adios",
+    "prl/agua.pose": "agua",
+    "prl/ahora.pose": "ahora",
+    "prl/alla.pose": "alla",
+    "prl/amiga.pose": "amiga",
+    "prl/amigo.pose": "amigo",
+    "prl/ano.pose": "ano",
+    "prl/antes.pose": "antes",
+    "prl/aprender.pose": "aprender",
+    "prl/aqui.pose": "aqui",
+    "prl/arequipa.pose": "arequipa",
+    "prl/atender.pose": "atender",
+    "prl/ayer.pose": "ayer",
+    "prl/ayudar.pose": "ayudar",
+    "prl/beber.pose": "beber",
+    "prl/bien.pose": "bien",
+    "prl/bienvenido.pose": "bienvenido",
+    "prl/buenasnoches.pose": "buenasnoches",
+    "prl/buenastardes.pose": "buenastardes",
+    "prl/bueno.pose": "bueno",
+    "prl/buenosdias.pose": "buenosdias",
+    "prl/caminar.pose": "caminar",
+    "prl/cansado.pose": "cansado",
+    "prl/casa.pose": "casa",
+    "prl/catorce.pose": "catorce",
+    "prl/cerca.pose": "cerca",
+    "prl/cien.pose": "cien",
+    "prl/cinco.pose": "cinco",
+    "prl/cincuenta.pose": "cincuenta",
+    "prl/claro.pose": "claro",
+    "prl/clase.pose": "clase",
+    "prl/colegio.pose": "colegio",
+    "prl/comer.pose": "comer",
+    "prl/como.pose": "como",
+    "prl/comprar.pose": "comprar",
+    "prl/computadora.pose": "computadora",
+    "prl/cuaderno.pose": "cuaderno",
+    "prl/cual.pose": "cual",
+    "prl/cuando.pose": "cuando",
+    "prl/cuanto.pose": "cuanto",
+    "prl/cuarenta.pose": "cuarenta",
+    "prl/cuatro.pose": "cuatro",
+    "prl/cumpleanos.pose": "cumpleanos",
+    "prl/dar.pose": "dar",
+    "prl/decir.pose": "decir",
+    "prl/despues.pose": "despues",
+    "prl/dia.pose": "dia",
+    "prl/diez.pose": "diez",
+    "prl/dificil.pose": "dificil",
+    "prl/doce.pose": "doce",
+    "prl/donde.pose": "donde",
+    "prl/dormir.pose": "dormir",
+    "prl/dos.pose": "dos",
+    "prl/edad.pose": "edad",
+    "prl/ejemplo.pose": "ejemplo",
+    "prl/el.pose": "el",
+    "prl/ellos.pose": "ellos",
+    "prl/empezar.pose": "empezar",
+    "prl/enfermo.pose": "enfermo",
+    "prl/enojado.pose": "enojado",
+    "prl/ensenar.pose": "ensenar",
+    "prl/entender.pose": "entender",
+    "prl/escribir.pose": "escribir",
+    "prl/escuchar.pose": "escuchar",
+    "prl/estar.pose": "estar",
+    "prl/estudiante.pose": "estudiante",
+    "prl/estudiar.pose": "estudiar",
+    "prl/examen.pose": "examen",
+    "prl/explicar.pose": "explicar",
+    "prl/facil.pose": "facil",
+    "prl/familia.pose": "familia",
+    "prl/feliz.pose": "feliz",
+    "prl/gracias.pose": "gracias",
+    "prl/grande.pose": "grande",
+    "prl/grupo.pose": "grupo",
+    "prl/gusto.pose": "gusto",
+    "prl/hablar.pose": "hablar",
+    "prl/hambre.pose": "hambre",
+    "prl/hasta.pose": "hasta",
+    "prl/hermana.pose": "hermana",
+    "prl/hermano.pose": "hermano",
+    "prl/hija.pose": "hija",
+    "prl/hijo.pose": "hijo",
+    "prl/hola.pose": "hola",
+    "prl/hombre.pose": "hombre",
+    "prl/hora.pose": "hora",
+    "prl/hoy.pose": "hoy",
+    "prl/importante.pose": "importante",
+    "prl/interprete.pose": "interprete",
+    "prl/ir.pose": "ir",
+    "prl/jueves.pose": "jueves",
+    "prl/jugar.pose": "jugar",
+    "prl/lapiz.pose": "lapiz",
+    "prl/leer.pose": "leer",
+    "prl/lejos.pose": "lejos",
+    "prl/letra_a.pose": "letra_a",
+    "prl/letra_b.pose": "letra_b",
+    "prl/letra_c.pose": "letra_c",
+    "prl/letra_d.pose": "letra_d",
+    "prl/letra_e.pose": "letra_e",
+    "prl/letra_enie.pose": "letra_enie",
+    "prl/letra_f.pose": "letra_f",
+    "prl/letra_g.pose": "letra_g",
+    "prl/letra_h.pose": "letra_h",
+    "prl/letra_i.pose": "letra_i",
+    "prl/letra_j.pose": "letra_j",
+    "prl/letra_k.pose": "letra_k",
+    "prl/letra_l.pose": "letra_l",
+    "prl/letra_m.pose": "letra_m",
+    "prl/letra_n.pose": "letra_n",
+    "prl/letra_o.pose": "letra_o",
+    "prl/letra_p.pose": "letra_p",
+    "prl/letra_q.pose": "letra_q",
+    "prl/letra_r.pose": "letra_r",
+    "prl/letra_s.pose": "letra_s",
+    "prl/letra_t.pose": "letra_t",
+    "prl/letra_u.pose": "letra_u",
+    "prl/letra_v.pose": "letra_v",
+    "prl/letra_w.pose": "letra_w",
+    "prl/letra_x.pose": "letra_x",
+    "prl/letra_y.pose": "letra_y",
+    "prl/letra_z.pose": "letra_z",
+    "prl/libro.pose": "libro",
+    "prl/lima.pose": "lima",
+    "prl/llamar.pose": "llamar",
+    "prl/luego.pose": "luego",
+    "prl/lugar.pose": "lugar",
+    "prl/lunes.pose": "lunes",
+    "prl/mal.pose": "mal",
+    "prl/mama.pose": "mama",
+    "prl/manana.pose": "manana",
+    "prl/martes.pose": "martes",
+    "prl/mas.pose": "mas",
+    "prl/me.pose": "me",
+    "prl/mes.pose": "mes",
+    "prl/mi.pose": "mi",
+    "prl/miedo.pose": "miedo",
+    "prl/miercoles.pose": "miercoles",
+    "prl/mucho.pose": "mucho",
+    "prl/mujer.pose": "mujer",
+    "prl/nada.pose": "nada",
+    "prl/necesitar.pose": "necesitar",
+    "prl/nina.pose": "nina",
+    "prl/nino.pose": "nino",
+    "prl/no.pose": "no",
+    "prl/noche.pose": "noche",
+    "prl/nombre.pose": "nombre",
+    "prl/nosotros.pose": "nosotros",
+    "prl/nota.pose": "nota",
+    "prl/noventa.pose": "noventa",
+    "prl/nueve.pose": "nueve",
+    "prl/nuevo.pose": "nuevo",
+    "prl/ochenta.pose": "ochenta",
+    "prl/ocho.pose": "ocho",
+    "prl/once.pose": "once",
+    "prl/oyente.pose": "oyente",
+    "prl/pais.pose": "pais",
+    "prl/pan.pose": "pan",
+    "prl/papa.pose": "papa",
+    "prl/papel.pose": "papel",
+    "prl/pequeno.pose": "pequeno",
+    "prl/perdon.pose": "perdon",
+    "prl/permiso.pose": "permiso",
+    "prl/persona.pose": "persona",
+    "prl/peru.pose": "peru",
+    "prl/pizarra.pose": "pizarra",
+    "prl/pizza.pose": "pizza",
+    "prl/poco.pose": "poco",
+    "prl/porfavor.pose": "porfavor",
+    "prl/porque.pose": "porque",
+    "prl/practicar.pose": "practicar",
+    "prl/preguntar.pose": "preguntar",
+    "prl/profesor.pose": "profesor",
+    "prl/que.pose": "que",
+    "prl/querer.pose": "querer",
+    "prl/quien.pose": "quien",
+    "prl/quince.pose": "quince",
+    "prl/recreo.pose": "recreo",
+    "prl/regular.pose": "regular",
+    "prl/respeto.pose": "respeto",
+    "prl/responder.pose": "responder",
+    "prl/saber.pose": "saber",
+    "prl/sed.pose": "sed",
+    "prl/seis.pose": "seis",
+    "prl/semana.pose": "semana",
+    "prl/senas.pose": "senas",
+    "prl/sentarse.pose": "sentarse",
+    "prl/sentir.pose": "sentir",
+    "prl/sesenta.pose": "sesenta",
+    "prl/setenta.pose": "setenta",
+    "prl/si.pose": "si",
+    "prl/siete.pose": "siete",
+    "prl/silencio.pose": "silencio",
+    "prl/sordo.pose": "sordo",
+    "prl/tarde.pose": "tarde",
+    "prl/tarea.pose": "tarea",
+    "prl/tema.pose": "tema",
+    "prl/tener.pose": "tener",
+    "prl/terminar.pose": "terminar",
+    "prl/tia.pose": "tia",
+    "prl/tio.pose": "tio",
+    "prl/todo.pose": "todo",
+    "prl/tomar.pose": "tomar",
+    "prl/trabajo.pose": "trabajo",
+    "prl/trece.pose": "trece",
+    "prl/treinta.pose": "treinta",
+    "prl/tres.pose": "tres",
+    "prl/triste.pose": "triste",
+    "prl/tu.pose": "tu",
+    "prl/uno.pose": "uno",
+    "prl/ustedes.pose": "ustedes",
+    "prl/veinte.pose": "veinte",
+    "prl/ver.pose": "ver",
+    "prl/viernes.pose": "viernes",
+    "prl/vivir.pose": "vivir",
+    "prl/yo.pose": "yo"
+  },
+  "clips": {
+    "abuela": {
+      "file": "abuela.json",
+      "gloss": "ABUELA",
+      "frames": 185
+    },
+    "abuelo": {
+      "file": "abuelo.json",
+      "gloss": "ABUELO",
+      "frames": 185
+    },
+    "adios": {
+      "file": "adios.json",
+      "gloss": "ADIOS",
+      "frames": 205
+    },
+    "agua": {
+      "file": "agua.json",
+      "gloss": "AGUA",
+      "frames": 137
+    },
+    "ahora": {
+      "file": "ahora.json",
+      "gloss": "AHORA",
+      "frames": 87
+    },
+    "alla": {
+      "file": "alla.json",
+      "gloss": "ALLA",
+      "frames": 121
+    },
+    "amiga": {
+      "file": "amiga.json",
+      "gloss": "AMIGA",
+      "frames": 185
+    },
+    "amigo": {
+      "file": "amigo.json",
+      "gloss": "AMIGO",
+      "frames": 183
+    },
+    "ano": {
+      "file": "ano.json",
+      "gloss": "ANO",
+      "frames": 145
+    },
+    "antes": {
+      "file": "antes.json",
+      "gloss": "ANTES",
+      "frames": 145
+    },
+    "aprender": {
+      "file": "aprender.json",
+      "gloss": "APRENDER",
+      "frames": 175
+    },
+    "aqui": {
+      "file": "aqui.json",
+      "gloss": "AQUI",
+      "frames": 135
+    },
+    "arequipa": {
+      "file": "arequipa.json",
+      "gloss": "AREQUIPA",
+      "frames": 183
+    },
+    "atender": {
+      "file": "atender.json",
+      "gloss": "ATENDER",
+      "frames": 153
+    },
+    "ayer": {
+      "file": "ayer.json",
+      "gloss": "AYER",
+      "frames": 131
+    },
+    "ayudar": {
+      "file": "ayudar.json",
+      "gloss": "AYUDAR",
+      "frames": 127
+    },
+    "beber": {
+      "file": "beber.json",
+      "gloss": "BEBER",
+      "frames": 133
+    },
+    "bien": {
+      "file": "bien.json",
+      "gloss": "BIEN",
+      "frames": 73
+    },
+    "bienvenido": {
+      "file": "bienvenido.json",
+      "gloss": "BIENVENIDO",
+      "frames": 193
+    },
+    "buenasnoches": {
+      "file": "buenasnoches.json",
+      "gloss": "BUENASNOCHES",
+      "frames": 137
+    },
+    "buenastardes": {
+      "file": "buenastardes.json",
+      "gloss": "BUENASTARDES",
+      "frames": 215
+    },
+    "bueno": {
+      "file": "bueno.json",
+      "gloss": "BUENO",
+      "frames": 123
+    },
+    "buenosdias": {
+      "file": "buenosdias.json",
+      "gloss": "BUENOSDIAS",
+      "frames": 235
+    },
+    "caminar": {
+      "file": "caminar.json",
+      "gloss": "CAMINAR",
+      "frames": 121
+    },
+    "cansado": {
+      "file": "cansado.json",
+      "gloss": "CANSADO",
+      "frames": 99
+    },
+    "casa": {
+      "file": "casa.json",
+      "gloss": "CASA",
+      "frames": 189
+    },
+    "catorce": {
+      "file": "catorce.json",
+      "gloss": "CATORCE",
+      "frames": 119
+    },
+    "cerca": {
+      "file": "cerca.json",
+      "gloss": "CERCA",
+      "frames": 133
+    },
+    "cien": {
+      "file": "cien.json",
+      "gloss": "CIEN",
+      "frames": 87
+    },
+    "cinco": {
+      "file": "cinco.json",
+      "gloss": "CINCO",
+      "frames": 115
+    },
+    "cincuenta": {
+      "file": "cincuenta.json",
+      "gloss": "CINCUENTA",
+      "frames": 77
+    },
+    "claro": {
+      "file": "claro.json",
+      "gloss": "CLARO",
+      "frames": 237
+    },
+    "clase": {
+      "file": "clase.json",
+      "gloss": "CLASE",
+      "frames": 111
+    },
+    "colegio": {
+      "file": "colegio.json",
+      "gloss": "COLEGIO",
+      "frames": 175
+    },
+    "comer": {
+      "file": "comer.json",
+      "gloss": "COMER",
+      "frames": 113
+    },
+    "como": {
+      "file": "como.json",
+      "gloss": "COMO",
+      "frames": 66
+    },
+    "comprar": {
+      "file": "comprar.json",
+      "gloss": "COMPRAR",
+      "frames": 147
+    },
+    "computadora": {
+      "file": "computadora.json",
+      "gloss": "COMPUTADORA",
+      "frames": 225
+    },
+    "cuaderno": {
+      "file": "cuaderno.json",
+      "gloss": "CUADERNO",
+      "frames": 161
+    },
+    "cual": {
+      "file": "cual.json",
+      "gloss": "CUAL",
+      "frames": 169
+    },
+    "cuando": {
+      "file": "cuando.json",
+      "gloss": "CUANDO",
+      "frames": 205
+    },
+    "cuanto": {
+      "file": "cuanto.json",
+      "gloss": "CUANTO",
+      "frames": 223
+    },
+    "cuarenta": {
+      "file": "cuarenta.json",
+      "gloss": "CUARENTA",
+      "frames": 95
+    },
+    "cuatro": {
+      "file": "cuatro.json",
+      "gloss": "CUATRO",
+      "frames": 115
+    },
+    "cumpleanos": {
+      "file": "cumpleanos.json",
+      "gloss": "CUMPLEANOS",
+      "frames": 115
+    },
+    "dar": {
+      "file": "dar.json",
+      "gloss": "DAR",
+      "frames": 149
+    },
+    "decir": {
+      "file": "decir.json",
+      "gloss": "DECIR",
+      "frames": 109
+    },
+    "despues": {
+      "file": "despues.json",
+      "gloss": "DESPUES",
+      "frames": 93
+    },
+    "dia": {
+      "file": "dia.json",
+      "gloss": "DIA",
+      "frames": 163
+    },
+    "diez": {
+      "file": "diez.json",
+      "gloss": "DIEZ",
+      "frames": 105
+    },
+    "dificil": {
+      "file": "dificil.json",
+      "gloss": "DIFICIL",
+      "frames": 135
+    },
+    "doce": {
+      "file": "doce.json",
+      "gloss": "DOCE",
+      "frames": 135
+    },
+    "donde": {
+      "file": "donde.json",
+      "gloss": "DONDE",
+      "frames": 63
+    },
+    "dormir": {
+      "file": "dormir.json",
+      "gloss": "DORMIR",
+      "frames": 115
+    },
+    "dos": {
+      "file": "dos.json",
+      "gloss": "DOS",
+      "frames": 119
+    },
+    "edad": {
+      "file": "edad.json",
+      "gloss": "EDAD",
+      "frames": 97
+    },
+    "ejemplo": {
+      "file": "ejemplo.json",
+      "gloss": "EJEMPLO",
+      "frames": 149
+    },
+    "el": {
+      "file": "el.json",
+      "gloss": "EL",
+      "frames": 145
+    },
+    "ellos": {
+      "file": "ellos.json",
+      "gloss": "ELLOS",
+      "frames": 171
+    },
+    "empezar": {
+      "file": "empezar.json",
+      "gloss": "EMPEZAR",
+      "frames": 171
+    },
+    "enfermo": {
+      "file": "enfermo.json",
+      "gloss": "ENFERMO",
+      "frames": 91
+    },
+    "enojado": {
+      "file": "enojado.json",
+      "gloss": "ENOJADO",
+      "frames": 93
+    },
+    "ensenar": {
+      "file": "ensenar.json",
+      "gloss": "ENSENAR",
+      "frames": 107
+    },
+    "entender": {
+      "file": "entender.json",
+      "gloss": "ENTENDER",
+      "frames": 129
+    },
+    "escribir": {
+      "file": "escribir.json",
+      "gloss": "ESCRIBIR",
+      "frames": 109
+    },
+    "escuchar": {
+      "file": "escuchar.json",
+      "gloss": "ESCUCHAR",
+      "frames": 157
+    },
+    "estar": {
+      "file": "estar.json",
+      "gloss": "ESTAR",
+      "frames": 83
+    },
+    "estudiante": {
+      "file": "estudiante.json",
+      "gloss": "ESTUDIANTE",
+      "frames": 143
+    },
+    "estudiar": {
+      "file": "estudiar.json",
+      "gloss": "ESTUDIAR",
+      "frames": 159
+    },
+    "examen": {
+      "file": "examen.json",
+      "gloss": "EXAMEN",
+      "frames": 157
+    },
+    "explicar": {
+      "file": "explicar.json",
+      "gloss": "EXPLICAR",
+      "frames": 107
+    },
+    "facil": {
+      "file": "facil.json",
+      "gloss": "FACIL",
+      "frames": 139
+    },
+    "familia": {
+      "file": "familia.json",
+      "gloss": "FAMILIA",
+      "frames": 171
+    },
+    "feliz": {
+      "file": "feliz.json",
+      "gloss": "FELIZ",
+      "frames": 87
+    },
+    "gracias": {
+      "file": "gracias.json",
+      "gloss": "GRACIAS",
+      "frames": 83
+    },
+    "grande": {
+      "file": "grande.json",
+      "gloss": "GRANDE",
+      "frames": 135
+    },
+    "grupo": {
+      "file": "grupo.json",
+      "gloss": "GRUPO",
+      "frames": 185
+    },
+    "gusto": {
+      "file": "gusto.json",
+      "gloss": "GUSTO",
+      "frames": 54
+    },
+    "hablar": {
+      "file": "hablar.json",
+      "gloss": "HABLAR",
+      "frames": 129
+    },
+    "hambre": {
+      "file": "hambre.json",
+      "gloss": "HAMBRE",
+      "frames": 137
+    },
+    "hasta": {
+      "file": "hasta.json",
+      "gloss": "HASTA",
+      "frames": 82
+    },
+    "hermana": {
+      "file": "hermana.json",
+      "gloss": "HERMANA",
+      "frames": 227
+    },
+    "hermano": {
+      "file": "hermano.json",
+      "gloss": "HERMANO",
+      "frames": 239
+    },
+    "hija": {
+      "file": "hija.json",
+      "gloss": "HIJA",
+      "frames": 175
+    },
+    "hijo": {
+      "file": "hijo.json",
+      "gloss": "HIJO",
+      "frames": 149
+    },
+    "hola": {
+      "file": "hola.json",
+      "gloss": "HOLA",
+      "frames": 86
+    },
+    "hombre": {
+      "file": "hombre.json",
+      "gloss": "HOMBRE",
+      "frames": 125
+    },
+    "hora": {
+      "file": "hora.json",
+      "gloss": "HORA",
+      "frames": 101
+    },
+    "hoy": {
+      "file": "hoy.json",
+      "gloss": "HOY",
+      "frames": 97
+    },
+    "importante": {
+      "file": "importante.json",
+      "gloss": "IMPORTANTE",
+      "frames": 195
+    },
+    "interprete": {
+      "file": "interprete.json",
+      "gloss": "INTERPRETE",
+      "frames": 137
+    },
+    "ir": {
+      "file": "ir.json",
+      "gloss": "IR",
+      "frames": 183
+    },
+    "jueves": {
+      "file": "jueves.json",
+      "gloss": "JUEVES",
+      "frames": 115
+    },
+    "jugar": {
+      "file": "jugar.json",
+      "gloss": "JUGAR",
+      "frames": 151
+    },
+    "lapiz": {
+      "file": "lapiz.json",
+      "gloss": "LAPIZ",
+      "frames": 95
+    },
+    "leer": {
+      "file": "leer.json",
+      "gloss": "LEER",
+      "frames": 143
+    },
+    "lejos": {
+      "file": "lejos.json",
+      "gloss": "LEJOS",
+      "frames": 97
+    },
+    "letra_a": {
+      "file": "letra_a.json",
+      "gloss": "LETRA_A",
+      "frames": 83
+    },
+    "letra_b": {
+      "file": "letra_b.json",
+      "gloss": "LETRA_B",
+      "frames": 129
+    },
+    "letra_c": {
+      "file": "letra_c.json",
+      "gloss": "LETRA_C",
+      "frames": 81
+    },
+    "letra_d": {
+      "file": "letra_d.json",
+      "gloss": "LETRA_D",
+      "frames": 115
+    },
+    "letra_e": {
+      "file": "letra_e.json",
+      "gloss": "LETRA_E",
+      "frames": 109
+    },
+    "letra_enie": {
+      "file": "letra_enie.json",
+      "gloss": "LETRA_ENIE",
+      "frames": 105
+    },
+    "letra_f": {
+      "file": "letra_f.json",
+      "gloss": "LETRA_F",
+      "frames": 107
+    },
+    "letra_g": {
+      "file": "letra_g.json",
+      "gloss": "LETRA_G",
+      "frames": 81
+    },
+    "letra_h": {
+      "file": "letra_h.json",
+      "gloss": "LETRA_H",
+      "frames": 93
+    },
+    "letra_i": {
+      "file": "letra_i.json",
+      "gloss": "LETRA_I",
+      "frames": 97
+    },
+    "letra_j": {
+      "file": "letra_j.json",
+      "gloss": "LETRA_J",
+      "frames": 123
+    },
+    "letra_k": {
+      "file": "letra_k.json",
+      "gloss": "LETRA_K",
+      "frames": 85
+    },
+    "letra_l": {
+      "file": "letra_l.json",
+      "gloss": "LETRA_L",
+      "frames": 79
+    },
+    "letra_m": {
+      "file": "letra_m.json",
+      "gloss": "LETRA_M",
+      "frames": 173
+    },
+    "letra_n": {
+      "file": "letra_n.json",
+      "gloss": "LETRA_N",
+      "frames": 99
+    },
+    "letra_o": {
+      "file": "letra_o.json",
+      "gloss": "LETRA_O",
+      "frames": 89
+    },
+    "letra_p": {
+      "file": "letra_p.json",
+      "gloss": "LETRA_P",
+      "frames": 77
+    },
+    "letra_q": {
+      "file": "letra_q.json",
+      "gloss": "LETRA_Q",
+      "frames": 91
+    },
+    "letra_r": {
+      "file": "letra_r.json",
+      "gloss": "LETRA_R",
+      "frames": 79
+    },
+    "letra_s": {
+      "file": "letra_s.json",
+      "gloss": "LETRA_S",
+      "frames": 91
+    },
+    "letra_t": {
+      "file": "letra_t.json",
+      "gloss": "LETRA_T",
+      "frames": 85
+    },
+    "letra_u": {
+      "file": "letra_u.json",
+      "gloss": "LETRA_U",
+      "frames": 85
+    },
+    "letra_v": {
+      "file": "letra_v.json",
+      "gloss": "LETRA_V",
+      "frames": 51
+    },
+    "letra_w": {
+      "file": "letra_w.json",
+      "gloss": "LETRA_W",
+      "frames": 85
+    },
+    "letra_x": {
+      "file": "letra_x.json",
+      "gloss": "LETRA_X",
+      "frames": 105
+    },
+    "letra_y": {
+      "file": "letra_y.json",
+      "gloss": "LETRA_Y",
+      "frames": 81
+    },
+    "letra_z": {
+      "file": "letra_z.json",
+      "gloss": "LETRA_Z",
+      "frames": 115
+    },
+    "libro": {
+      "file": "libro.json",
+      "gloss": "LIBRO",
+      "frames": 151
+    },
+    "lima": {
+      "file": "lima.json",
+      "gloss": "LIMA",
+      "frames": 129
+    },
+    "llamar": {
+      "file": "llamar.json",
+      "gloss": "LLAMAR",
+      "frames": 67
+    },
+    "luego": {
+      "file": "luego.json",
+      "gloss": "LUEGO",
+      "frames": 81
+    },
+    "lugar": {
+      "file": "lugar.json",
+      "gloss": "LUGAR",
+      "frames": 123
+    },
+    "lunes": {
+      "file": "lunes.json",
+      "gloss": "LUNES",
+      "frames": 149
+    },
+    "mal": {
+      "file": "mal.json",
+      "gloss": "MAL",
+      "frames": 199
+    },
+    "mama": {
+      "file": "mama.json",
+      "gloss": "MAMA",
+      "frames": 119
+    },
+    "manana": {
+      "file": "manana.json",
+      "gloss": "MANANA",
+      "frames": 131
+    },
+    "martes": {
+      "file": "martes.json",
+      "gloss": "MARTES",
+      "frames": 149
+    },
+    "mas": {
+      "file": "mas.json",
+      "gloss": "MAS",
+      "frames": 149
+    },
+    "me": {
+      "file": "me.json",
+      "gloss": "ME",
+      "frames": 82
+    },
+    "mes": {
+      "file": "mes.json",
+      "gloss": "MES",
+      "frames": 157
+    },
+    "mi": {
+      "file": "mi.json",
+      "gloss": "MI",
+      "frames": 75
+    },
+    "miedo": {
+      "file": "miedo.json",
+      "gloss": "MIEDO",
+      "frames": 115
+    },
+    "miercoles": {
+      "file": "miercoles.json",
+      "gloss": "MIERCOLES",
+      "frames": 163
+    },
+    "mucho": {
+      "file": "mucho.json",
+      "gloss": "MUCHO",
+      "frames": 72
+    },
+    "mujer": {
+      "file": "mujer.json",
+      "gloss": "MUJER",
+      "frames": 91
+    },
+    "nada": {
+      "file": "nada.json",
+      "gloss": "NADA",
+      "frames": 169
+    },
+    "necesitar": {
+      "file": "necesitar.json",
+      "gloss": "NECESITAR",
+      "frames": 185
+    },
+    "nina": {
+      "file": "nina.json",
+      "gloss": "NINA",
+      "frames": 137
+    },
+    "nino": {
+      "file": "nino.json",
+      "gloss": "NINO",
+      "frames": 171
+    },
+    "no": {
+      "file": "no.json",
+      "gloss": "NO",
+      "frames": 177
+    },
+    "noche": {
+      "file": "noche.json",
+      "gloss": "NOCHE",
+      "frames": 165
+    },
+    "nombre": {
+      "file": "nombre.json",
+      "gloss": "NOMBRE",
+      "frames": 97
+    },
+    "nosotros": {
+      "file": "nosotros.json",
+      "gloss": "NOSOTROS",
+      "frames": 141
+    },
+    "nota": {
+      "file": "nota.json",
+      "gloss": "NOTA",
+      "frames": 159
+    },
+    "noventa": {
+      "file": "noventa.json",
+      "gloss": "NOVENTA",
+      "frames": 79
+    },
+    "nueve": {
+      "file": "nueve.json",
+      "gloss": "NUEVE",
+      "frames": 109
+    },
+    "nuevo": {
+      "file": "nuevo.json",
+      "gloss": "NUEVO",
+      "frames": 127
+    },
+    "ochenta": {
+      "file": "ochenta.json",
+      "gloss": "OCHENTA",
+      "frames": 85
+    },
+    "ocho": {
+      "file": "ocho.json",
+      "gloss": "OCHO",
+      "frames": 99
+    },
+    "once": {
+      "file": "once.json",
+      "gloss": "ONCE",
+      "frames": 121
+    },
+    "oyente": {
+      "file": "oyente.json",
+      "gloss": "OYENTE",
+      "frames": 97
+    },
+    "pais": {
+      "file": "pais.json",
+      "gloss": "PAIS",
+      "frames": 111
+    },
+    "pan": {
+      "file": "pan.json",
+      "gloss": "PAN",
+      "frames": 133
+    },
+    "papa": {
+      "file": "papa.json",
+      "gloss": "PAPA",
+      "frames": 193
+    },
+    "papel": {
+      "file": "papel.json",
+      "gloss": "PAPEL",
+      "frames": 105
+    },
+    "pequeno": {
+      "file": "pequeno.json",
+      "gloss": "PEQUENO",
+      "frames": 107
+    },
+    "perdon": {
+      "file": "perdon.json",
+      "gloss": "PERDON",
+      "frames": 235
+    },
+    "permiso": {
+      "file": "permiso.json",
+      "gloss": "PERMISO",
+      "frames": 251
+    },
+    "persona": {
+      "file": "persona.json",
+      "gloss": "PERSONA",
+      "frames": 103
+    },
+    "peru": {
+      "file": "peru.json",
+      "gloss": "PERU",
+      "frames": 123
+    },
+    "pizarra": {
+      "file": "pizarra.json",
+      "gloss": "PIZARRA",
+      "frames": 129
+    },
+    "pizza": {
+      "file": "pizza.json",
+      "gloss": "PIZZA",
+      "frames": 199
+    },
+    "poco": {
+      "file": "poco.json",
+      "gloss": "POCO",
+      "frames": 139
+    },
+    "porfavor": {
+      "file": "porfavor.json",
+      "gloss": "PORFAVOR",
+      "frames": 89
+    },
+    "porque": {
+      "file": "porque.json",
+      "gloss": "PORQUE",
+      "frames": 181
+    },
+    "practicar": {
+      "file": "practicar.json",
+      "gloss": "PRACTICAR",
+      "frames": 147
+    },
+    "preguntar": {
+      "file": "preguntar.json",
+      "gloss": "PREGUNTAR",
+      "frames": 115
+    },
+    "profesor": {
+      "file": "profesor.json",
+      "gloss": "PROFESOR",
+      "frames": 119
+    },
+    "que": {
+      "file": "que.json",
+      "gloss": "QUE",
+      "frames": 189
+    },
+    "querer": {
+      "file": "querer.json",
+      "gloss": "QUERER",
+      "frames": 123
+    },
+    "quien": {
+      "file": "quien.json",
+      "gloss": "QUIEN",
+      "frames": 233
+    },
+    "quince": {
+      "file": "quince.json",
+      "gloss": "QUINCE",
+      "frames": 105
+    },
+    "recreo": {
+      "file": "recreo.json",
+      "gloss": "RECREO",
+      "frames": 157
+    },
+    "regular": {
+      "file": "regular.json",
+      "gloss": "REGULAR",
+      "frames": 237
+    },
+    "respeto": {
+      "file": "respeto.json",
+      "gloss": "RESPETO",
+      "frames": 99
+    },
+    "responder": {
+      "file": "responder.json",
+      "gloss": "RESPONDER",
+      "frames": 105
+    },
+    "saber": {
+      "file": "saber.json",
+      "gloss": "SABER",
+      "frames": 145
+    },
+    "sed": {
+      "file": "sed.json",
+      "gloss": "SED",
+      "frames": 91
+    },
+    "seis": {
+      "file": "seis.json",
+      "gloss": "SEIS",
+      "frames": 125
+    },
+    "semana": {
+      "file": "semana.json",
+      "gloss": "SEMANA",
+      "frames": 143
+    },
+    "senas": {
+      "file": "senas.json",
+      "gloss": "SENAS",
+      "frames": 103
+    },
+    "sentarse": {
+      "file": "sentarse.json",
+      "gloss": "SENTARSE",
+      "frames": 117
+    },
+    "sentir": {
+      "file": "sentir.json",
+      "gloss": "SENTIR",
+      "frames": 113
+    },
+    "sesenta": {
+      "file": "sesenta.json",
+      "gloss": "SESENTA",
+      "frames": 79
+    },
+    "setenta": {
+      "file": "setenta.json",
+      "gloss": "SETENTA",
+      "frames": 85
+    },
+    "si": {
+      "file": "si.json",
+      "gloss": "SI",
+      "frames": 229
+    },
+    "siete": {
+      "file": "siete.json",
+      "gloss": "SIETE",
+      "frames": 121
+    },
+    "silencio": {
+      "file": "silencio.json",
+      "gloss": "SILENCIO",
+      "frames": 95
+    },
+    "sordo": {
+      "file": "sordo.json",
+      "gloss": "SORDO",
+      "frames": 89
+    },
+    "tarde": {
+      "file": "tarde.json",
+      "gloss": "TARDE",
+      "frames": 129
+    },
+    "tarea": {
+      "file": "tarea.json",
+      "gloss": "TAREA",
+      "frames": 175
+    },
+    "tema": {
+      "file": "tema.json",
+      "gloss": "TEMA",
+      "frames": 167
+    },
+    "tener": {
+      "file": "tener.json",
+      "gloss": "TENER",
+      "frames": 145
+    },
+    "terminar": {
+      "file": "terminar.json",
+      "gloss": "TERMINAR",
+      "frames": 87
+    },
+    "tia": {
+      "file": "tia.json",
+      "gloss": "TIA",
+      "frames": 169
+    },
+    "tio": {
+      "file": "tio.json",
+      "gloss": "TIO",
+      "frames": 187
+    },
+    "todo": {
+      "file": "todo.json",
+      "gloss": "TODO",
+      "frames": 109
+    },
+    "tomar": {
+      "file": "tomar.json",
+      "gloss": "TOMAR",
+      "frames": 115
+    },
+    "trabajo": {
+      "file": "trabajo.json",
+      "gloss": "TRABAJO",
+      "frames": 91
+    },
+    "trece": {
+      "file": "trece.json",
+      "gloss": "TRECE",
+      "frames": 143
+    },
+    "treinta": {
+      "file": "treinta.json",
+      "gloss": "TREINTA",
+      "frames": 83
+    },
+    "tres": {
+      "file": "tres.json",
+      "gloss": "TRES",
+      "frames": 131
+    },
+    "triste": {
+      "file": "triste.json",
+      "gloss": "TRISTE",
+      "frames": 95
+    },
+    "tu": {
+      "file": "tu.json",
+      "gloss": "TU",
+      "frames": 73
+    },
+    "uno": {
+      "file": "uno.json",
+      "gloss": "UNO",
+      "frames": 101
+    },
+    "ustedes": {
+      "file": "ustedes.json",
+      "gloss": "USTEDES",
+      "frames": 155
+    },
+    "veinte": {
+      "file": "veinte.json",
+      "gloss": "VEINTE",
+      "frames": 107
+    },
+    "ver": {
+      "file": "ver.json",
+      "gloss": "VER",
+      "frames": 113
+    },
+    "viernes": {
+      "file": "viernes.json",
+      "gloss": "VIERNES",
+      "frames": 115
+    },
+    "vivir": {
+      "file": "vivir.json",
+      "gloss": "VIVIR",
+      "frames": 67
+    },
+    "yo": {
+      "file": "yo.json",
+      "gloss": "YO",
+      "frames": 75
+    }
+  }
+}

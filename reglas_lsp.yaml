@@ -1,0 +1,63 @@
+# reglas_lsp.yaml  --  PROVISIONAL. Debe validarlo un intérprete o una persona sorda usuaria de LSP.
+# Cada regla indica qué tan respaldada está (evidencia) y si está activa por defecto.
+# evidencia: ALTA = descrita para LSP en literatura; MEDIA = fuentes divergentes; BAJA = viene de otras
+#            lenguas de señas (p. ej. española) o de material divulgativo; NO asumir sin verificar.
+
+orden_constituyentes:
+  activo: true
+  valor: SOV            # Sujeto - Objeto - Verbo
+  evidencia: MEDIA
+  nota: >
+    Varias fuentes académicas describen SOV como orden canónico de la LSP, con mucha flexibilidad
+    (Rodríguez Mondoñedo y colaboradores). Otras fuentes divulgativas dicen que SVO es el más aceptado,
+    y los intérpretes (hablantes de español) tienden a signar en SVO. Dejar configurable.
+  alternativa_configurable: SVO
+
+omitir:
+  articulos: {activo: true, evidencia: BAJA, lista: [el, la, los, las, un, una, unos, unas]}
+  copula_ser_estar:
+    activo: true
+    evidencia: BAJA
+    lista: [ser, estar]
+    nota: "El léxico incluye la glosa 'estar': verificar si se omite"
+  nota: >
+    La ausencia de artículos y de ser/estar se cita para lenguas de señas en general y para la LSE;
+    no encontré una fuente específica de LSP. Verificar.
+
+verbos:
+  usar_infinitivo: true   # sin conjugación: "comí" -> comer
+  evidencia: MEDIA
+  nota: El tiempo se marca con una seña de tiempo, no con la flexión del verbo.
+
+tiempo:
+  activo: true
+  evidencia: MEDIA
+  posicion_marcador: inicio   # opciones: inicio | despues_del_verbo
+  marcadores: {pasado: [ayer, antes], futuro: [manana], presente: []}
+  nota: >
+    Ambiguo: "luego" forma parte de "hasta luego".
+    Hay fuentes que describen una seña extra de pasado/futuro junto al verbo (presente sin marca)
+    y otras (LSE) que colocan el marcador de tiempo al inicio. Posición configurable.
+
+negacion:
+  activo: true
+  posicion: despues_del_verbo
+  evidencia: BAJA          # descrito para LSE; verificar en LSP
+  nota: Va acompañada de expresión facial/cabeza, que el avatar aún no produce.
+
+pronombres:
+  usar_deixis: true         # señalar en lugar de pronombre: yo / tu / el
+  evidencia: ALTA           # guía MINEDU: la deixis se usa para pronombres, demostrativos, adverbios
+  equivalencias: {yo: yo, tu: tu, usted: tu, el: el, ella: el}
+
+preguntas:
+  expresion_facial_obligatoria: true   # ALTA (guía MINEDU); el avatar aún no la implementa
+  posicion_palabra_interrogativa: SIN_VERIFICAR
+  nota: No fijar posición de qué/dónde/cómo hasta validarlo con usuarios de LSP.
+
+oraciones_subordinadas:
+  tratar_con_llm_o_revision_humana: true
+  evidencia: ALTA
+  nota: >
+    La LSP tiene cláusulas relativas post-nominales con pronombre reasuntivo (Quintú Quimün, 2022).
+    Es demasiado complejo para reglas simples: no inventar glosas.

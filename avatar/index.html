@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LSP Avatar</title>
+<style>
+  :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark}
+  *{box-sizing:border-box}
+  html,body{width:100%;height:100%;margin:0;overflow:hidden;color:#f5f6fa;background:radial-gradient(ellipse at 50% 34%,#252b39 0%,#151923 56%,#0b0e14 100%);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  canvas{position:fixed;inset:0;z-index:0;display:block;width:100vw;height:100vh;outline:0;background:radial-gradient(ellipse at 50% 34%,#252b39 0%,#151923 56%,#0b0e14 100%)}
+  button,select,input{font:inherit}
+  button,select{min-height:40px;border:1px solid #ffffff24;border-radius:12px;background:#1a1e29;color:#f5f6fa;padding:8px 12px}
+  button{cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+  button:hover,select:hover{background:#292f3e;border-color:#ffffff52}
+  button:active{transform:scale(.97)}
+  button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,label:has(input:focus-visible){outline:3px solid #8cc8ff;outline-offset:3px}
+  #msg{position:fixed;top:18px;left:20px;z-index:1;max-width:min(360px,calc(100vw - 40px));color:#d8deea;font-size:12px;opacity:.68;white-space:pre-line;text-shadow:0 1px 5px #000}
+  #settings{position:fixed;top:18px;right:20px;z-index:5}
+  #settings>summary{display:grid;place-items:center;width:44px;height:44px;list-style:none;border:1px solid #ffffff24;border-radius:50%;background:#10141dcc;backdrop-filter:blur(16px);font-size:21px;cursor:pointer}
+  #settings>summary::-webkit-details-marker{display:none}
+  #settings[open]>summary{background:#252b39}
+  #settings-menu{position:absolute;top:54px;right:0;display:flex;min-width:220px;flex-direction:column;gap:10px;padding:14px;border:1px solid #ffffff1f;border-radius:18px;background:#10141deF;box-shadow:0 16px 48px #0008;backdrop-filter:blur(20px)}
+  #settings-menu #ui{display:flex;align-items:center;gap:8px}
+  #ui button{min-width:70px}
+  #ui input[type=range]{width:110px;accent-color:#a9c8ff}
+  #speed,#language,#mode-select{width:100%;max-width:220px}
+  #ollama-status,#version{font-size:11px;color:#aab4c6}
+  #details{position:fixed;top:18px;right:78px;z-index:4;width:min(330px,calc(100vw - 110px));border:1px solid #ffffff24;border-radius:16px;background:#10141dcc;box-shadow:0 10px 32px #0005;backdrop-filter:blur(16px)}
+  #details-header{display:flex;min-height:44px;align-items:center;justify-content:space-between;gap:12px;padding:5px 8px 5px 14px;color:#e9edf5}
+  #details-header button{min-height:34px;padding:5px 10px;background:#ffffff0b}
+  #details-body{max-height:36vh;overflow:auto;padding:2px 14px 12px;color:#d1d8e5;font-size:12px;line-height:1.55}
+  #details-body p{margin:6px 0}
+  #details-body[hidden]{display:none}
+  #no-gloss-warning{color:#ffd27a}
+  #first-frame{color:#b9e4ff}
+  #detail-text-line{position:fixed;right:12px;bottom:112px;left:12px;z-index:2;overflow:hidden;color:#f5f6fa;font-size:clamp(16px,2.4vw,25px);font-weight:550;letter-spacing:.01em;text-align:center;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 2px 12px #000,0 1px 4px #000}
+  #detail-text.partial{color:#d6dbe4;opacity:.58;font-style:italic;font-weight:400}
+  #detail-text-label{font-size:.64em;font-weight:450;opacity:.72}
+  #sentence-gloss-line{position:fixed;top:clamp(22px,5vh,48px);left:50%;z-index:2;width:min(760px,calc(100vw - 120px));transform:translateX(-50%);color:#e8edf7;text-align:center;text-shadow:0 2px 12px #000,0 1px 4px #000;pointer-events:none}
+  #sentence-gloss-label{font-size:11px;font-weight:450;letter-spacing:.08em;opacity:.7}
+  #sentence-glosses{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;margin-top:3px;font-size:clamp(14px,2vw,20px);font-weight:550;letter-spacing:.04em}
+  #sentence-glosses .gloss-done{color:#c6cedb;opacity:.48}
+  #sentence-glosses .gloss-current{color:#fff;font-weight:750;text-shadow:0 0 14px #b5d7ffb0,0 2px 10px #000}
+  #sentence-glosses .gloss-pending{color:#f0f3f8;opacity:.88}
+  #gl{position:fixed;right:16px;bottom:154px;left:16px;z-index:2;min-height:1.3em;color:#fff;font-size:clamp(22px,4vw,38px);font-weight:650;letter-spacing:.08em;text-align:center;text-shadow:0 2px 16px #000,0 1px 5px #000;pointer-events:none}
+  #entry{position:fixed;right:50%;bottom:max(20px,env(safe-area-inset-bottom));z-index:4;display:flex;width:min(540px,calc(100vw - 28px));min-height:78px;align-items:center;justify-content:center;gap:12px;padding:10px 14px;transform:translateX(50%);border:1px solid #ffffff27;border-radius:999px;background:#10141dcf;box-shadow:0 12px 40px #0007;backdrop-filter:blur(20px)}
+  #entry-mode{display:flex;flex:0 0 auto;align-items:center;gap:3px;padding:4px;border:1px solid #ffffff16;border-radius:999px;background:#090c12a6}
+  #entry-mode input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  #entry-mode label{display:grid;min-width:88px;min-height:44px;place-items:center;padding:0 12px;border-radius:999px;color:#b9c1d0;cursor:pointer;transition:background .18s ease,color .18s ease}
+  #entry-mode input:checked+label{background:#30394a;color:#fff}
+  #entry-mode label:has(input:focus-visible){outline:3px solid #8cc8ff;outline-offset:2px}
+  #entry #toggle-mic{display:grid;width:58px;height:58px;min-width:58px;min-height:58px;place-items:center;padding:0;border:0;border-radius:50%;background:#e8efff;color:#151923;font-size:25px;box-shadow:0 4px 18px #0005}
+  #entry #toggle-mic:hover{background:#fff;transform:scale(1.05)}
+  #entry #toggle-mic[aria-pressed="true"]{background:#e84c5b;color:white;animation:recording-pulse 1.35s ease-out infinite}
+  @keyframes recording-pulse{0%{box-shadow:0 0 0 0 #e84c5b80}70%{box-shadow:0 0 0 12px #e84c5b00}100%{box-shadow:0 0 0 0 #e84c5b00}}
+  #entry #text-input{display:none;flex:1;min-width:0;height:48px;padding:0 16px;border:1px solid #ffffff24;border-radius:999px;background:#080b11b8;color:#fff}
+  #entry #text-input::placeholder{color:#929bad}
+  #entry #send-text{display:none;min-width:78px;min-height:48px;border:0;border-radius:999px;background:#dce7ff;color:#111827;font-weight:650}
+  #entry:has(#mode-write:checked) #toggle-mic{display:none}
+  #entry:has(#mode-write:checked) #text-input,#entry:has(#mode-write:checked) #send-text{display:block}
+  #entry-status{position:absolute;right:8px;bottom:calc(100% + 6px);left:8px;min-height:1em;color:#e0e5ee;font-size:12px;text-align:center;text-shadow:0 1px 8px #000;pointer-events:none}
+  #version{display:block;padding-top:4px;border-top:1px solid #ffffff16}
+  @media(max-width:600px){
+    #settings{top:12px;right:12px}
+    #details{top:68px;right:12px;width:min(320px,calc(100vw - 24px))}
+    #detail-text-line{bottom:112px;font-size:15px}
+    #sentence-gloss-line{top:18px;width:calc(100vw - 110px)}
+    #sentence-glosses{gap:2px 7px;font-size:14px}
+    #gl{bottom:158px;font-size:25px}
+    #entry{bottom:max(14px,env(safe-area-inset-bottom));min-height:72px;gap:8px;padding:8px 10px}
+    #entry-mode label{min-width:70px;min-height:44px;padding:0 8px;font-size:12px}
+    #entry #toggle-mic{width:56px;height:56px;min-width:56px;min-height:56px}
+    #entry:has(#mode-write:checked){width:calc(100vw - 20px)}
+    #entry:has(#mode-write:checked) #entry-mode{display:none}
+    #entry:has(#mode-write:checked) #text-input{font-size:16px}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "@pixiv/three-vrm":"https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3/lib/three-vrm.module.js"}}
+</script>
+</head>
+<body>
+<div id="msg">Cargando avatar…</div>
+<details id="settings">
+  <summary aria-label="Abrir ajustes">⚙</summary>
+  <div id="settings-menu">
+    <div id="ui">
+      <button id="play">Pausa</button>
+      <input id="seek" type="range" min="0" max="1" step="0.001" value="0">
+    </div>
+    <label for="speed">Velocidad</label>
+    <select id="speed"><option>0.25</option><option>0.5</option><option selected>1</option></select>
+    <label for="language">Idioma de voz</label>
+    <select id="language" aria-label="Idioma de reconocimiento">
+      <option value="es-PE">Español (Perú)</option>
+      <option value="es-ES">Español (España)</option>
+      <option value="es-MX">Español (México)</option>
+    </select>
+    <label for="mode-select">Modo de traducción</label>
+    <select id="mode-select" aria-label="Modo de traducción">
+      <option value="solo_reglas">Solo reglas</option>
+      <option value="solo_si_hace_falta">Reglas + LLM</option>
+      <optgroup label="Avanzado">
+        <option value="siempre">Siempre LLM</option>
+      </optgroup>
+    </select>
+    <span>Ollama: <span id="ollama-status">Comprobando…</span></span>
+    <span id="version">visor ui-etapaD-20261024.1</span>
+  </div>
+</details>
+<span id="gl"></span>
+<div id="sentence-gloss-line" aria-live="polite">
+  <div id="sentence-gloss-label">Oración reestructurada</div>
+  <div id="sentence-glosses"></div>
+</div>
+<p id="detail-text-line"><span id="detail-text-label">Texto entrado por micrófono</span>: <span id="detail-text">—</span></p>
+<div id="entry">
+  <div id="entry-mode" role="group" aria-label="Tipo de entrada">
+    <input id="mode-voice" type="radio" name="entry-mode" value="voice" checked>
+    <label for="mode-voice">Hablar</label>
+    <input id="mode-write" type="radio" name="entry-mode" value="write">
+    <label for="mode-write">Escribir</label>
+  </div>
+  <input id="text-input" type="text" placeholder="Escribe o dicta en español" aria-label="Texto para traducir">
+  <button id="send-text" type="button">Enviar</button>
+  <button id="toggle-mic" type="button" aria-label="Iniciar o detener el reconocimiento de voz" aria-pressed="false">🎙️</button>
+  <span id="entry-status" role="status" aria-live="polite"></span>
+</div>
+<aside id="details" aria-label="Resultado de traducción">
+  <div id="details-header">
+    <strong>Traducción</strong>
+    <button id="toggle-details" type="button" aria-expanded="false">Mostrar</button>
+  </div>
+  <div id="details-body" hidden>
+    <p>Glosas encoladas: <span id="detail-glosses">—</span></p>
+    <p id="no-gloss-warning" hidden></p>
+    <p>Camino: <span id="detail-route">—</span></p>
+    <p>Latencia: <span id="detail-latency">—</span></p>
+    <p id="first-frame"></p>
+  </div>
+</aside>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
+import {
+  ID, boneNames, buildRig, qSlerp, sampleFrame, solveFrame, prepareClip,
+} from './retarget.js';
+
+const CLIP_BLEND_FRAMES = 6;
+const QUEUE_POLL_MS = 30;
+const REST_BLEND_MS = 350;
+const $ = (id) => document.getElementById(id), msg = $('msg');
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setClearColor(0x000000, 0);
+renderer.setPixelRatio(devicePixelRatio);
+renderer.setSize(innerWidth, innerHeight);
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = null;
+const cam = new THREE.PerspectiveCamera(27, innerWidth / innerHeight, 0.1, 20);
+cam.position.set(0, 1.48, 2.65);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 1.3, 0);
+controls.update();
+scene.add(new THREE.HemisphereLight(0xffffff, 0x444455, 1.2));
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+directionalLight.position.set(1, 2, 2);
+scene.add(directionalLight);
+addEventListener('resize', () => {
+  cam.aspect = innerWidth / innerHeight;
+  cam.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+const clipRequests = [], readyClips = [], clipCache = new Map();
+const params = new URLSearchParams(location.search);
+const dataParam = params.get('data');
+const perf = window.__avatarTiming = {
+  firstAnimatedFrameMs: null,
+  firstGloss: null,
+  lastAnimatedFrameMs: null,
+  lastSayTextToFirstFrameMs: null,
+  lastSayTextResponseToFirstFrameMs: null,
+};
+let vrm, rig, activeClip = null, transition = null, restBlend = null;
+let loadingClips = false, serverQueueEmpty = true, state = {};
+let lastRotations = Object.fromEntries(boneNames().map((name) => [name, [...ID]]));
+let playing = true;
+const sentenceGlossQueue = [];
+let activeSentenceGlosses = null;
+
+try {
+  const avatarLoader = new GLTFLoader();
+  avatarLoader.register((parser) => new VRMLoaderPlugin(parser));
+  vrm = (await avatarLoader.loadAsync('avatar.vrm')).userData.vrm;
+  VRMUtils.rotateVRM0(vrm);
+  scene.add(vrm.scene);
+  vrm.scene.updateMatrixWorld(true);
+
+  const restPos = {}, position = new THREE.Vector3();
+  for (const name of boneNames()) {
+    const node = vrm.humanoid.getNormalizedBoneNode(name);
+    if (node) {
+      node.getWorldPosition(position);
+      restPos[name] = [position.x, position.y, position.z];
+    }
+  }
+  rig = buildRig(restPos);
+  msg.textContent = 'Esperando glosas…';
+} catch (error) {
+  msg.textContent = `Error cargando avatar: ${error.message}`;
+  throw error;
+}
+
+function mixFrames(first, second, amount) {
+  const mixed = {};
+  for (const field of ['pose', 'poseConf', 'lh', 'lhConf', 'rh', 'rhConf']) {
+    const a = first[field], b = second[field], output = new Float32Array(a.length);
+    const confidence = field.endsWith('Conf');
+    for (let i = 0; i < a.length; i++) {
+      output[i] = confidence ? Math.min(a[i], b[i]) : a[i] * (1 - amount) + b[i] * amount;
+    }
+    mixed[field] = output;
+  }
+  return mixed;
+}
+
+function enqueueNextReadyClip() {
+  if (activeClip || transition || readyClips.length === 0) return;
+  const item = readyClips.shift();
+  activeClip = {
+    ...item,
+    frame: 0,
+    endedAt: null,
+    entryFrom: restBlend ? { ...lastRotations } : null,
+    entryProgress: 0,
+    firstFrameLogged: false,
+  };
+  if (restBlend) {
+    restBlend = null;
+    state = {};
+  }
+  $('gl').textContent = activeClip.gloss;
+  advanceSentenceGlossDisplay(activeClip.gloss);
+  msg.textContent = 'Reproduciendo glosa';
+}
+
+async function getClip(item) {
+  if (!clipCache.has(item.key)) {
+    const load = (async () => {
+      if (!item.file.startsWith('data/lexicon/')) {
+        throw new Error('Ruta de clip inválida recibida desde la cola');
+      }
+      const response = await fetch(item.file);
+      if (!response.ok) {
+        throw new Error(`No se pudo cargar el clip ${item.gloss}: HTTP ${response.status}`);
+      }
+      const json = await response.json();
+      if (json.version !== 1 || !json.frames) {
+        throw new Error(`Formato inválido para la glosa ${item.gloss}`);
+      }
+      return prepareClip(json);
+    })();
+    clipCache.set(item.key, load);
+    load.catch(() => clipCache.delete(item.key));
+  }
+  return clipCache.get(item.key);
+}
+
+async function loadRequestedClips() {
+  if (loadingClips) return;
+  loadingClips = true;
+  try {
+    while (clipRequests.length > 0) {
+      const item = clipRequests.shift();
+      try {
+        const clip = await getClip(item);
+        readyClips.push({ ...item, clip });
+        enqueueNextReadyClip();
+      } catch (error) {
+        msg.textContent = `Error cargando ${item.gloss}: ${error.message}`;
+        console.error(error);
+      }
+    }
+  } finally {
+    loadingClips = false;
+  }
+}
+
+async function hydrateFromDataFile(filePath) {
+  if (!filePath) return;
+  try {
+    const response = await fetch(filePath, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar ${filePath}: HTTP ${response.status}`);
+    }
+    const payload = await response.json();
+    const glosses = Array.isArray(payload?.glosses) ? payload.glosses : [];
+    const clips = Array.isArray(payload?.clips) ? payload.clips : [];
+    for (const item of clips.length ? clips : glosses.map((gloss) => ({ gloss, file: null }))) {
+      if (!item || !item.gloss) continue;
+      const normalized = String(item.gloss).trim();
+      const file = item.file || `data/lexicon/${normalized.toLowerCase()}.json`;
+      if (file.startsWith('data/lexicon/')) {
+        clipRequests.push({ key: normalized.toUpperCase(), gloss: normalized, file, enqueued_at_ms: performance.now() });
+      }
+    }
+    if (clipRequests.length > 0) {
+      loadRequestedClips();
+    }
+  } catch (error) {
+    msg.textContent = `Error leyendo ${filePath}: ${error.message}`;
+    console.error(error);
+  }
+}
+
+async function pollQueue() {
+  try {
+    const response = await fetch('/next', { cache: 'no-store' });
+    if (response.status === 204) {
+      serverQueueEmpty = true;
+    } else if (!response.ok) {
+      throw new Error(`HTTP ${response.status} al consultar la cola`);
+    } else {
+      serverQueueEmpty = false;
+      clipRequests.push(await response.json());
+      loadRequestedClips();
+    }
+  } catch (error) {
+    msg.textContent = `Error de cola: ${error.message}`;
+    console.error(error);
+  } finally {
+    setTimeout(pollQueue, QUEUE_POLL_MS);
+  }
+}
+
+function beginTransitionIfReady(now) {
+  if (!activeClip || activeClip.frame < activeClip.clip.frames || transition) return;
+  if (readyClips.length > 0) {
+    transition = {
+      from: activeClip,
+      to: readyClips.shift(),
+      progress: 0,
+    };
+    activeClip = null;
+    $('gl').textContent = `${transition.from.gloss} → ${transition.to.gloss}`;
+    return;
+  }
+
+  const pending = clipRequests.length > 0 || loadingClips || !serverQueueEmpty;
+  if (pending) return;
+  if (activeClip.endedAt === null) activeClip.endedAt = now;
+  if (now - activeClip.endedAt < 180) return;
+
+  restBlend = {
+    from: { ...lastRotations },
+    startedAt: now,
+  };
+  activeClip = null;
+  state = {};
+  $('gl').textContent = '';
+  msg.textContent = 'Esperando glosas…';
+}
+
+function nextFrame(dt, now) {
+  enqueueNextReadyClip();
+  if (transition) {
+    if (playing) {
+      transition.progress += dt * transition.to.clip.fps
+        * Number($('speed').value);
+    }
+    const blendIndex = Math.min(Math.floor(transition.progress), CLIP_BLEND_FRAMES - 1);
+    const amount = (blendIndex + 1) / (CLIP_BLEND_FRAMES + 1);
+    const from = sampleFrame(transition.from.clip, transition.from.clip.frames - 1);
+    const to = sampleFrame(transition.to.clip, 0);
+    const frame = mixFrames(from, to, amount);
+    if (transition.progress >= CLIP_BLEND_FRAMES) {
+      activeClip = {
+        ...transition.to,
+        frame: 0,
+        endedAt: null,
+        entryFrom: null,
+        entryProgress: 0,
+        firstFrameLogged: false,
+      };
+      transition = null;
+      $('gl').textContent = activeClip.gloss;
+      advanceSentenceGlossDisplay(activeClip.gloss);
+    }
+    return { frame, item: activeClip || transition?.to, isClipFrame: true };
+  }
+
+  if (activeClip) {
+    if (playing) {
+      activeClip.frame += dt * activeClip.clip.fps * Number($('speed').value);
+    }
+    beginTransitionIfReady(now);
+    if (transition) return nextFrame(0, now);
+    if (activeClip) {
+      const frame = sampleFrame(
+        activeClip.clip,
+        Math.min(activeClip.frame, activeClip.clip.frames - 1),
+      );
+      return { frame, item: activeClip, isClipFrame: true };
+    }
+  }
+
+  if (readyClips.length > 0) {
+    enqueueNextReadyClip();
+    if (activeClip) {
+      return {
+        frame: sampleFrame(activeClip.clip, activeClip.frame),
+        item: activeClip,
+        isClipFrame: true,
+      };
+    }
+  }
+
+  if (restBlend) {
+    const amount = Math.min((now - restBlend.startedAt) / REST_BLEND_MS, 1);
+    const rotations = {};
+    for (const [name, from] of Object.entries(restBlend.from)) {
+      rotations[name] = qSlerp(from, ID, amount);
+    }
+    if (amount >= 1) restBlend = null;
+    return { rotations, isClipFrame: false };
+  }
+  return { rotations: lastRotations, isClipFrame: false };
+}
+
+$('play').onclick = () => {
+  playing = !playing;
+  $('play').textContent = playing ? 'Pausa' : 'Play';
+};
+$('seek').oninput = (event) => {
+  if (activeClip && !transition) {
+    activeClip.frame = Number(event.target.value) * (activeClip.clip.frames - 1);
+    state = {};
+  }
+};
+
+const textInput = $('text-input');
+const entryStatus = $('entry-status');
+const micButton = $('toggle-mic');
+const detailText = $('detail-text');
+const detailTextLabel = $('detail-text-label');
+const detailGlosses = $('detail-glosses');
+const sentenceGlosses = $('sentence-glosses');
+const detailRoute = $('detail-route');
+const detailLatency = $('detail-latency');
+const firstFrameText = $('first-frame');
+const noGlossWarning = $('no-gloss-warning');
+const modeSelect = $('mode-select');
+const ollamaStatus = $('ollama-status');
+const languageSelect = $('language');
+let recognition = null;
+let listening = false;
+let useSpanishFallback = false;
+let speechPauseTimer = null;
+let lastSubmittedSpeech = '';
+let lastSubmittedWritten = '';
+let latestRequestStartEpoch = 0;
+let lastPanelFrameRequestEpoch = 0;
+let latestRequestResponseAt = 0;
+let latestRequestFirstFrameAt = 0;
+
+function updateFirstFrameMeasurement() {
+  if (!latestRequestResponseAt || !latestRequestFirstFrameAt) return;
+  const responseToFrameMs = Math.max(
+    0,
+    Math.round(latestRequestFirstFrameAt - latestRequestResponseAt),
+  );
+  perf.lastSayTextResponseToFirstFrameMs = responseToFrameMs;
+  firstFrameText.textContent =
+    `Primer frame: ${perf.lastSayTextToFirstFrameMs} ms desde solicitud · `
+    + `${responseToFrameMs} ms desde respuesta`;
+}
+
+function setPanelText(text, partial = false, source = 'microphone') {
+  detailTextLabel.textContent = source === 'written'
+    ? 'Texto escrito'
+    : 'Texto entrado por micrófono';
+  detailText.textContent = text || '—';
+  detailText.classList.toggle('partial', partial);
+}
+
+function renderSentenceGlosses(group) {
+  sentenceGlosses.replaceChildren();
+  group.glosses.forEach((gloss, index) => {
+    const word = document.createElement('span');
+    word.textContent = gloss;
+    word.className = index < group.currentIndex
+      ? 'gloss-done'
+      : index === group.currentIndex
+        ? 'gloss-current'
+        : 'gloss-pending';
+    sentenceGlosses.append(word);
+  });
+}
+
+function advanceSentenceGlossDisplay(gloss) {
+  const normalizedGloss = String(gloss).trim().toLocaleLowerCase('es-PE');
+  let group = activeSentenceGlosses;
+  if (
+    !group
+    || group.nextIndex >= group.glosses.length
+    || group.glosses[group.nextIndex].toLocaleLowerCase('es-PE') !== normalizedGloss
+  ) {
+    const nextGroupIndex = sentenceGlossQueue.findIndex((candidate) => (
+      candidate.nextIndex < candidate.glosses.length
+      && candidate.glosses[candidate.nextIndex].toLocaleLowerCase('es-PE') === normalizedGloss
+    ));
+    if (nextGroupIndex < 0) return;
+    activeSentenceGlosses = sentenceGlossQueue.splice(0, nextGroupIndex + 1).at(-1);
+    group = activeSentenceGlosses;
+  }
+  group.currentIndex = group.nextIndex;
+  group.nextIndex += 1;
+  renderSentenceGlosses(group);
+}
+
+function showTranslationResult(result, requestedText, requestMs, source, requestEpoch) {
+  setPanelText(requestedText, false, source);
+  const glosses = result.glosas_encoladas || result.glosses || [];
+  detailGlosses.textContent = glosses.length ? glosses.join(' · ') : '—';
+  if (glosses.length) {
+    const group = {
+      glosses: glosses.map((gloss) => String(gloss).trim()),
+      currentIndex: -1,
+      nextIndex: 0,
+      requestEpoch,
+    };
+    sentenceGlossQueue.push(group);
+    const currentItem = [transition?.to, activeClip].find(
+      (item) => item?.enqueued_at_ms === group.requestEpoch,
+    );
+    if (currentItem && currentItem.enqueued_at_ms === group.requestEpoch) {
+      const currentIndex = group.glosses.findIndex(
+        (itemGloss) => itemGloss.toLocaleLowerCase('es-PE')
+          === String(currentItem.gloss).trim().toLocaleLowerCase('es-PE'),
+      );
+      if (currentIndex >= 0) {
+        group.currentIndex = currentIndex - 1;
+        group.nextIndex = currentIndex;
+        advanceSentenceGlossDisplay(currentItem.gloss);
+      }
+    }
+  }
+  detailRoute.textContent = result.camino || 'reglas';
+  const timings = result.timing_ms || {};
+  detailLatency.textContent = `servidor ${timings.total_ms ?? '—'} ms · respuesta ${requestMs.toFixed(1)} ms`;
+  latestRequestResponseAt = performance.now();
+  updateFirstFrameMeasurement();
+  const missing = result.sin_sena || [];
+  noGlossWarning.hidden = missing.length === 0;
+  noGlossWarning.textContent = missing.length
+    ? `Sin seña en el léxico: ${missing.join(' · ')}`
+    : '';
+  if (lastPanelFrameRequestEpoch !== latestRequestStartEpoch) {
+    firstFrameText.textContent = '';
+  }
+}
+
+async function checkOllamaStatus() {
+  ollamaStatus.textContent = 'Comprobando…';
+  try {
+    const response = await fetch('/ollama_status', { cache: 'no-store' });
+    const result = await response.json();
+    ollamaStatus.textContent = response.ok ? result.status : 'no disponible';
+  } catch {
+    ollamaStatus.textContent = 'no disponible';
+  }
+}
+
+async function loadCurrentMode() {
+  try {
+    const response = await fetch('/config', { cache: 'no-store' });
+    const result = await response.json();
+    if (response.ok && ['solo_reglas', 'solo_si_hace_falta', 'siempre'].includes(result.mode)) {
+      modeSelect.value = result.mode;
+    }
+  } catch (error) {
+    entryStatus.textContent = `No se pudo leer el modo actual: ${error.message}`;
+  }
+}
+
+modeSelect.onchange = async () => {
+  modeSelect.disabled = true;
+  try {
+    const response = await fetch('/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({ mode: modeSelect.value }),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+    modeSelect.value = result.mode;
+    entryStatus.textContent = `Modo actualizado: ${modeSelect.options[modeSelect.selectedIndex].text}.`;
+  } catch (error) {
+    entryStatus.textContent = `No se pudo cambiar el modo: ${error.message}`;
+    void loadCurrentMode();
+  } finally {
+    modeSelect.disabled = false;
+    void checkOllamaStatus();
+  }
+};
+
+const languageStorageKey = 'lsp-avatar-speech-language';
+try {
+  const savedLanguage = localStorage.getItem(languageStorageKey);
+  if (['es-PE', 'es-ES', 'es-MX'].includes(savedLanguage)) {
+    languageSelect.value = savedLanguage;
+  }
+} catch (error) {
+  console.warn('No se pudo leer el idioma guardado:', error);
+}
+languageSelect.onchange = () => {
+  useSpanishFallback = false;
+  try {
+    localStorage.setItem(languageStorageKey, languageSelect.value);
+  } catch (error) {
+    console.warn('No se pudo guardar el idioma de reconocimiento:', error);
+  }
+  if (recognition) recognition.lang = languageSelect.value;
+};
+
+$('toggle-details').onclick = (event) => {
+  const expanded = event.currentTarget.getAttribute('aria-expanded') === 'true';
+  event.currentTarget.setAttribute('aria-expanded', String(!expanded));
+  event.currentTarget.textContent = expanded ? 'Mostrar' : 'Ocultar';
+  $('details-body').hidden = expanded;
+};
+
+function normalizedTranscript(text) {
+  return text.toLocaleLowerCase('es-PE')
+    .replace(/[.,!?¿¡;:]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function postText(text, displayText = text, source = 'written') {
+  const normalized = text.trim();
+  if (!normalized) {
+    entryStatus.textContent = 'Escribe o dicta una frase primero.';
+    return false;
+  }
+
+  const startedAt = performance.now();
+  const enqueuedAt = performance.timeOrigin + startedAt;
+  latestRequestStartEpoch = enqueuedAt;
+  lastPanelFrameRequestEpoch = 0;
+  latestRequestResponseAt = 0;
+  latestRequestFirstFrameAt = 0;
+  setPanelText(displayText, false, source);
+  firstFrameText.textContent = '';
+  try {
+    const response = await fetch('/say_text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({ text: normalized, final: true, enqueued_at_ms: enqueuedAt }),
+    });
+    const result = await response.json();
+    const requestMs = performance.now() - startedAt;
+    console.info(`SAY_TEXT_REQUEST_MS=${requestMs.toFixed(1)}`);
+    showTranslationResult(result, displayText, requestMs, source, enqueuedAt);
+    if (!response.ok) {
+      entryStatus.textContent = result.error || `Error del servidor (${response.status}).`;
+      return false;
+    }
+    if (result.timing_ms) {
+      console.info(`ENVIAR_TEXTO_SERVER_MS=${result.timing_ms.total_ms}`);
+    }
+    entryStatus.textContent = result.queued
+      ? `Glosas en cola: ${result.glosses.join(' · ')} (${result.timing_ms?.total_ms ?? '?'} ms)`
+      : 'No se encontraron señas para ese texto.';
+    return result.queued > 0;
+  } catch (error) {
+    entryStatus.textContent = `No se pudo conectar con la app: ${error.message}`;
+    console.error(error);
+    return false;
+  }
+}
+
+$('send-text').onclick = () => {
+  sendWrittenText();
+};
+textInput.addEventListener('input', () => {
+  if ($('mode-write').checked) {
+    const visibleText = writtenDisplayText(textInput.value);
+    if (visibleText !== null) setPanelText(visibleText, false, 'written');
+  }
+});
+textInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    sendWrittenText();
+  }
+});
+
+function writtenDisplayText(text) {
+  const trimmed = text.trim();
+  if (!lastSubmittedWritten) return text;
+  if (trimmed === lastSubmittedWritten) return null;
+  if (trimmed.startsWith(`${lastSubmittedWritten} `)) {
+    return trimmed.slice(lastSubmittedWritten.length).trim();
+  }
+  return text;
+}
+
+function sendWrittenText() {
+  const text = textInput.value;
+  const visibleText = writtenDisplayText(text);
+  lastSubmittedWritten = text.trim();
+  postText(text, visibleText ?? text, 'written');
+}
+
+function createRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return null;
+
+  const speech = new SpeechRecognition();
+  speech.lang = useSpanishFallback ? 'es-ES' : languageSelect.value;
+  speech.interimResults = true;
+  speech.continuous = true;
+  speech.onresult = (event) => {
+    let transcript = '';
+    let allFinal = event.results.length > 0;
+    for (let index = 0; index < event.results.length; index++) {
+      const result = event.results[index];
+      transcript += `${result[0].transcript} `;
+      allFinal = allFinal && result.isFinal;
+    }
+    transcript = transcript.trim();
+    if (!transcript) return;
+    textInput.value = transcript;
+    const visibleTranscript = speechDisplayText(transcript);
+    if (visibleTranscript !== null) {
+      setPanelText(visibleTranscript, !allFinal, 'microphone');
+    }
+    entryStatus.textContent = allFinal ? 'Reconocimiento final.' : 'Escuchando…';
+    clearTimeout(speechPauseTimer);
+    if (allFinal) {
+      sendSpeechTranscript(transcript, visibleTranscript);
+    } else {
+      speechPauseTimer = setTimeout(
+        () => sendSpeechTranscript(transcript, visibleTranscript),
+        700,
+      );
+    }
+  };
+  speech.onerror = (event) => {
+    console.log('SpeechRecognition event.error:', event.error);
+    void getMicrophonePermissionState().then((permissionState) => {
+      console.log('Microphone permission state:', permissionState);
+      entryStatus.textContent += ` (event.error=${event.error}; permiso=${permissionState})`;
+    });
+    if (event.error === 'language-not-supported' && !useSpanishFallback) {
+      useSpanishFallback = true;
+      stopVoiceInput('es-PE no está disponible. Pulsa el micrófono para volver a intentar con es-ES.');
+      return;
+    }
+    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      stopVoiceInput(voiceErrorMessage(event.error));
+    } else if (event.error === 'audio-capture') {
+      stopVoiceInput(voiceErrorMessage(event.error));
+    } else if (event.error === 'network') {
+      stopVoiceInput(voiceErrorMessage(event.error));
+    } else if (event.error !== 'no-speech' && event.error !== 'aborted') {
+      entryStatus.textContent = `${voiceErrorMessage(event.error)} (event.error=${event.error})`;
+    }
+  };
+  speech.onend = () => {
+    if (!listening) return;
+    clearTimeout(speechPauseTimer);
+    speechPauseTimer = null;
+    lastSubmittedSpeech = '';
+    stopVoiceInput('El reconocimiento terminó. Pulsa el micrófono para iniciar otra vez.');
+  };
+  return speech;
+}
+
+async function getMicrophonePermissionState() {
+  if (!navigator.permissions?.query) return 'no disponible';
+  try {
+    const permission = await navigator.permissions.query({ name: 'microphone' });
+    return permission.state;
+  } catch (error) {
+    console.warn('No se pudo consultar el permiso de micrófono:', error);
+    return `consulta no disponible (${error.message})`;
+  }
+}
+
+function voiceErrorMessage(errorCode) {
+  const messages = {
+    'not-allowed': 'Permiso de micrófono denegado. Habilítalo en la configuración del navegador.',
+    'service-not-allowed': 'El servicio de reconocimiento de voz no está permitido por el navegador o el sistema.',
+    'audio-capture': 'No se encontró un micrófono disponible o no se pudo acceder a él.',
+    network: 'El servicio de reconocimiento de voz no está disponible en la red.',
+  };
+  return messages[errorCode] || `Error de reconocimiento de voz: ${errorCode}.`;
+}
+
+function stopVoiceInput(message) {
+  listening = false;
+  micButton.setAttribute('aria-pressed', 'false');
+  micButton.textContent = '🎙️';
+  entryStatus.textContent = message;
+}
+
+function speechDisplayText(transcript) {
+  const normalized = normalizedTranscript(transcript);
+  if (!lastSubmittedSpeech) return transcript;
+  if (normalized === lastSubmittedSpeech) return null;
+  if (normalized.startsWith(`${lastSubmittedSpeech} `)) {
+    const submittedWordCount = lastSubmittedSpeech.split(' ').length;
+    return transcript.trim().split(/\s+/).slice(submittedWordCount).join(' ');
+  }
+  if (lastSubmittedSpeech.startsWith(`${normalized} `)) return null;
+  return transcript;
+}
+
+async function sendSpeechTranscript(transcript, visibleText = transcript) {
+  const normalized = normalizedTranscript(transcript);
+  if (!normalized || normalized === lastSubmittedSpeech) return;
+  if (
+    lastSubmittedSpeech
+    && !normalized.startsWith(`${lastSubmittedSpeech} `)
+    && !lastSubmittedSpeech.startsWith(normalized)
+  ) {
+    return;
+  }
+  const delta = lastSubmittedSpeech
+    ? normalized.slice(lastSubmittedSpeech.length).trim()
+    : normalized;
+  if (!delta) return;
+
+  const previous = lastSubmittedSpeech;
+  lastSubmittedSpeech = normalized;
+  const queued = await postText(delta, visibleText || delta, 'microphone');
+  if (!queued && lastSubmittedSpeech === normalized) {
+    lastSubmittedSpeech = previous;
+  }
+}
+
+micButton.onclick = async () => {
+  if (listening) {
+    listening = false;
+    recognition?.stop();
+    micButton.setAttribute('aria-pressed', 'false');
+    micButton.textContent = '🎙️';
+    entryStatus.textContent = 'Micrófono detenido.';
+    return;
+  }
+  recognition = createRecognition();
+  if (!recognition) {
+    entryStatus.textContent = 'Este navegador no admite reconocimiento de voz. Prueba Chrome o Edge.';
+    return;
+  }
+  if (!navigator.mediaDevices?.getUserMedia) {
+    entryStatus.textContent = 'Este navegador no permite solicitar acceso al micrófono desde esta página.';
+    return;
+  }
+
+  entryStatus.textContent = 'Solicitando permiso de micrófono…';
+  try {
+    void getMicrophonePermissionState().then((permissionState) => {
+      console.log('Microphone permission state before request:', permissionState);
+    });
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    for (const track of stream.getTracks()) {
+      track.stop();
+    }
+    recognition.start();
+    listening = true;
+    micButton.setAttribute('aria-pressed', 'true');
+    micButton.textContent = 'Detener';
+    entryStatus.textContent = `Micrófono activo (${recognition.lang}).`;
+    void getMicrophonePermissionState().then((permissionState) => {
+      console.log('Microphone permission state after request:', permissionState);
+      entryStatus.textContent += ` (permiso=${permissionState})`;
+    });
+  } catch (error) {
+    listening = false;
+    micButton.setAttribute('aria-pressed', 'false');
+    micButton.textContent = '🎙️';
+    const permissionState = await getMicrophonePermissionState();
+    console.log('Microphone permission state after request failure:', permissionState);
+    entryStatus.textContent = `No se pudo activar el micrófono: ${error.name}: ${error.message} (permiso=${permissionState})`;
+  }
+};
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(clock.getDelta(), 0.1);
+  const now = performance.now();
+  const sample = nextFrame(dt, now);
+  let rotations = sample.rotations;
+
+  if (sample.isClipFrame) {
+    rotations = solveFrame(rig, sample.frame, { torso: 0.6, head: 0.5 }, state);
+    const item = sample.item;
+    if (item && activeClip?.entryFrom) {
+      const amount = Math.min(
+        (activeClip.entryProgress + dt * activeClip.clip.fps) / CLIP_BLEND_FRAMES,
+        1,
+      );
+      for (const name of Object.keys(rotations)) {
+        rotations[name] = qSlerp(activeClip.entryFrom[name] || ID, rotations[name], amount);
+      }
+      activeClip.entryProgress += dt * activeClip.clip.fps;
+      if (activeClip.entryProgress >= CLIP_BLEND_FRAMES) activeClip.entryFrom = null;
+    }
+  }
+
+  for (const [name, quaternion] of Object.entries(rotations || {})) {
+    vrm.humanoid.getNormalizedBoneNode(name)?.quaternion.set(...quaternion);
+  }
+  lastRotations = Object.fromEntries(
+    Object.entries(rotations || {}).map(([name, quaternion]) => [name, [...quaternion]]),
+  );
+  vrm.update(dt);
+  renderer.render(scene, cam);
+
+  const item = sample.item;
+  if (sample.isClipFrame && item && !item.firstFrameLogged) {
+    const nowEpochMs = performance.timeOrigin + performance.now();
+    const latency = Math.max(0, Math.round(nowEpochMs - item.enqueued_at_ms));
+    item.firstFrameLogged = true;
+    perf.lastAnimatedFrameMs = latency;
+    if (perf.firstAnimatedFrameMs === null) {
+      perf.firstAnimatedFrameMs = latency;
+      perf.firstGloss = item.gloss;
+    }
+    msg.textContent = `Primer frame animado: ${latency} ms`;
+    console.info(`FIRST_ANIMATED_FRAME_MS=${latency} GLOSS=${item.gloss}`);
+    if (
+      item.enqueued_at_ms >= latestRequestStartEpoch
+      && item.enqueued_at_ms !== lastPanelFrameRequestEpoch
+    ) {
+      perf.lastSayTextToFirstFrameMs = latency;
+      lastPanelFrameRequestEpoch = item.enqueued_at_ms;
+      latestRequestFirstFrameAt = performance.now();
+      updateFirstFrameMeasurement();
+    }
+  }
+
+  if (activeClip && !transition) {
+    $('seek').value = Math.min(activeClip.frame / (activeClip.clip.frames - 1), 1);
+  }
+});
+
+if (dataParam) {
+  hydrateFromDataFile(dataParam);
+} else {
+  pollQueue();
+}
+void loadCurrentMode();
+void checkOllamaStatus();
+</script>
+</body>
+</html>

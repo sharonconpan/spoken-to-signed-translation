@@ -1,0 +1,87 @@
+# ejemplos_lsp.yaml -- TODOS PROVISIONALES (estado: PROVISIONAL).
+# Sirven para probar el pipeline y como ejemplos del prompt del LLM, NO como gramática validada.
+# Antes de usarlos como verdad, que los revise un intérprete o una persona sorda usuaria de LSP.
+#
+# Notas para el test:
+#  - Solo hola, tu, vivir y como están confirmados en tu léxico; el resto debe reportarse como
+#    "sin seña en el léxico", no como fallo.
+#  - Los glosas son las del índice (minúsculas, sin tildes). Ajusta nombres a tu index.csv.
+ejemplos:
+  - id: 1
+    es: "Hola, ¿cómo estás?"
+    glosas: [hola, tu, como]
+    reglas: [deixis, pregunta_facial]
+    estado: PROVISIONAL
+    nota: "La posición de 'cómo' no está verificada."
+
+  - id: 2
+    es: "Hola, tú vives aquí"
+    glosas: [hola, tu, aqui, vivir]
+    reglas: [deixis, omitir_articulos]
+    estado: PROVISIONAL
+
+  - id: 3
+    es: "Yo como pizza"
+    glosas: [yo, pizza, comer]
+    reglas: [orden_SOV]
+    estado: PROVISIONAL
+
+  - id: 4
+    es: "Los niños pequeños comen pizza"
+    glosas: [nino, pequeno, pizza, comer]
+    reglas: [orden_SOV, omitir_articulos, infinitivo]
+    estado: PROVISIONAL
+    nota: "El plural no está resuelto (¿repetición?). Verificar."
+
+  - id: 5
+    es: "El niño toma agua"
+    glosas: [nino, agua, tomar]
+    reglas: [orden_SOV, omitir_articulos]
+    estado: PROVISIONAL
+
+  - id: 6
+    es: "Mañana voy al colegio"
+    glosas: [manana, yo, colegio, ir]
+    reglas: [tiempo_inicio, orden_SOV]
+    estado: PROVISIONAL
+
+  - id: 7
+    es: "Ayer comí pan"
+    glosas: [ayer, yo, pan, comer]
+    reglas: [tiempo_inicio, infinitivo, orden_SOV]
+    estado: PROVISIONAL
+
+  - id: 8
+    es: "No quiero agua"
+    glosas: [yo, agua, querer, no]
+    reglas: [orden_SOV, negacion_despues_del_verbo]
+    estado: PROVISIONAL
+    nota: "Posición de la negación tomada de LSE; verificar en LSP."
+
+  - id: 9
+    es: "Mi mamá es profesora"
+    glosas: [mi, mama, profesor]
+    reglas: [omitir_copula]
+    estado: PROVISIONAL
+    nota: "El género no está resuelto; verificar con un intérprete si se marca aparte"
+
+  - id: 10
+    es: "¿Vives en Lima?"
+    glosas: [tu, lima, vivir]
+    reglas: [deixis, orden_SOV, pregunta_facial]
+    estado: EN_REVISION
+    nota: "¿Se seña la preposición 'en'? Pendiente de validar con un intérprete"
+
+  - id: 11
+    es: "Por favor, ayúdame"
+    glosas: [porfavor, ayudar]
+    reglas: [infinitivo]
+    estado: PROVISIONAL
+    nota: "Es un verbo direccional (concordancia en el espacio); el avatar no lo modela aún."
+
+  - id: 12
+    es: "La mujer que vive aquí es mi tía"
+    glosas: null          # NO inventar: cláusula relativa, requiere revisión humana
+    reglas: [clausula_relativa]
+    estado: SIN_RESOLVER
+    nota: "La LSP usa relativas post-nominales con pronombre reasuntivo. Caso para validar con expertos."
